@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Forum - New Post</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Forum</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {{ if eq .ErrResp.IsAuthenticated true }}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profile">Profile</a>
+                        <a class="dropdown-item" href="/my">My posts</a>
+                        <a class="dropdown-item" href="/postsByComment">Commented posts</a>
+                        <a class="dropdown-item" href="/favorite">Liked posts</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user/logout">Log out</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/notify">Notifications <span class="badge bg-danger rounded-pill"> {{ .NewNotifyCount }}</span></a></li>
+                {{ else }}
+                <li class="nav-item"><a class="nav-link" href="/user/login">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user/register">Sign Up</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page content-->
+<div class="container position-relative" style="height: 82vh;">
+    <div class="row position-absolute col-12" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <!-- Blog entries-->
+        <!-- Featured blog post-->
+        {{ range .Posts }}
+        <form method="post">
+            <div class="card">
+                <!--                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
+                <div class="card-body">
+                    <h2 class="card-title">Update Post</h2>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input class="form-control" id="title" name="title" value="{{ .Title }}" type="text" placeholder="Enter your title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="3" required>{{ .Content }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">Tags</label>
+                        <input class="form-control" id="tags" name="tags" type="text" value="{{ .UpdatedCategory }}" placeholder="Enter your tags split spaces" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </form>
+        {{ end }}
+    </div>
+</div>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Forum &copy; Alem 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>
